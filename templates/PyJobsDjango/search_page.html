@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% csrf_token %}
+</head>
+<body>
+    {% load staticfiles %}
+    <link type="text/css" rel="stylesheet" href="{% static "PyJobsDjango/search_page.css" %}">
+    <div class="center">
+        {{ keywords }}
+        <form class="job_search" action="/jobs/" method="POST">
+            {% csrf_token %}
+            <input type="text" name="keywords" class="searchbox" placeholder="python">
+            <input type="text" name="zipcode" class="zipbox" placeholder="94105"><br>
+            <input value="Find Jobs" type="submit" name="submit" class="submit">
+
+        </form>
+    </div>
+</body>
+</html>
