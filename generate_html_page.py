@@ -23,9 +23,12 @@ class JobListPage(object):
         else:
             self.css_location = css_location + "job_page.css"
         self.job_count = job_count
+        month = datetime.now().strftime('%A, %B')
+        day = datetime.now().day
         self.page = """
       <html>
         <head>
+            <title>Job Report for {} {}</title>
             <link type='text/css' rel='stylesheet' href='""" + self.css_location + """'/>
         </head>
         <body>
@@ -34,7 +37,7 @@ class JobListPage(object):
            Job Report for {} {}
           </h1>
           </div>
-          <p>""".format(datetime.now().strftime('%A, %B'), datetime.now().day)
+          <p>""".format(month, day, month, day)
 
     html_tail = """
           </p>
