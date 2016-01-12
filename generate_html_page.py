@@ -16,7 +16,7 @@ class JobListPage(object):
     def __init__(self, search, css_location, filename="Job_Report.html", job_count=100):
         self.search = search
         self.jobs_list = []
-        self.file_name = "templates\PyJobsDjango\\" + filename
+        self.file_name = "templates/PyJobsDjango/" + filename
         self.locations = {}
         if css_location == 'static':
             self.css_location = '/static/PyJobsDjango/job_page.css'
@@ -95,7 +95,7 @@ class JobListPage(object):
             with open(self.file_name, 'w') as file:
                 file.write(self.page)
         except FileNotFoundError:
-            file = open(settings.BASE_DIR + '\PyJobsDjango\\' + self.file_name, 'w+', encoding='utf-8')
+            file = open(settings.BASE_DIR + '/PyJobsDjango/' + self.file_name, 'w+', encoding='utf-8')
             file.write(self.page)
             file.close()
 
@@ -124,6 +124,6 @@ if __name__ == "__main__":
                   "required_terms": '',
                   }
 
-    job_page = JobListPage(search_test, origin + '\static\PyJobsDjango\\', 'python_developer.html')
+    job_page = JobListPage(search_test, origin + '/static/PyJobsDjango/', 'python_developer.html')
     job_page.execute()
     job_page.open_page()
