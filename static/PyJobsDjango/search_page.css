@@ -1,0 +1,27 @@
+.searchbox {
+    margin: 0 0 0 -200px;
+    position: relative;
+    top: 40%;
+    left: 50%;
+    width: 400px;
+}
+
+.zipbox {
+    margin: 0 0 0 10px;
+    position: relative;
+    top: 40%;
+    left: 50%;
+    width: 80px;
+}
+
+.submit {
+    margin: 0 0 0 -50px;
+    position: relative;
+    top: 40%;
+    left: 50%;
+    width: 100px;
+}
+
+.center {
+    margin-top: 20%;
+}

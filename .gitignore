@@ -1,0 +1,6 @@
+__pycache__
+*.idea
+*.log
+*.html
+
+keys.ini

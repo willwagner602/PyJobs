@@ -1,0 +1,43 @@
+div{
+    background-color: orange;
+    margin: auto;
+    width: 40%;
+    text-align: center;
+}
+
+body {
+    background-color: white;
+}
+
+h3 {
+    font-family: 'Georgia', Helvetica;
+
+}
+
+.dice_logo {
+    background-image: url(https://assets.dice.com/techpro/img/dice-techpro-sprite.png);
+    text-indent: -9999px;
+    margin: 0 auto;
+    display: inline-block;
+    max-width: 60px;
+    width: 55px;
+    height: 30px;
+    background-position: 0 -411px;
+    background-repeat: no-repeat;
+    background-size: 113px;
+}
+
+.github_jobs_logo {
+    background-image: url(https://jobs.github.com/images/layout/logo.png);
+    text-indent: -9999px;
+    margin: 0 auto;
+    display: inline-block;
+    width: 124.5px;
+    height: 20px;
+}
+
+.github_jobs {
+    display: inline;
+    width: 130px;
+    background: #1D5C8F;
+}
