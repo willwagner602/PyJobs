@@ -29,7 +29,7 @@ class JobListPage(object):
       <html>
         <head>
             <title>Job Report for {} {}</title>
-            <link type='text/css' rel='stylesheet' href='""" + self.css_location + """'/>
+            <link type='text/css' rel='stylesheet' href="{}"/>
         </head>
         <body>
           <div>
@@ -37,7 +37,7 @@ class JobListPage(object):
            Job Report for {} {}
           </h1>
           </div>
-          <p>""".format(month, day, month, day)
+          <p>""".format(month, day,self.css_location, month, day)
 
     html_tail = """
           </p>
