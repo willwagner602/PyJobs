@@ -18,7 +18,9 @@ class JobListPage(object):
         self.jobs_list = []
         self.file_name = "templates/PyJobsDjango/" + filename
         self.locations = {}
-        if css_location == 'static':
+        if css_location = 'materialize':
+            self.css_location = 'https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css'
+        elif css_location == 'static':
             self.css_location = '/static/PyJobsDjango/job_page.css'
         else:
             self.css_location = css_location + "job_page.css"
@@ -41,6 +43,8 @@ class JobListPage(object):
 
     html_tail = """
           </p>
+          <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+          <script type="text/javascript" src="js/materialize.min.js">
         </body>
       </html>"""
 
