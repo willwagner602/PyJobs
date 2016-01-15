@@ -5,9 +5,9 @@ import webbrowser
 from datetime import datetime
 import logging
 from urllib.request import pathname2url
+from multiprocessing import Process, Queue
 
 from MainServer import settings
-
 from PyJobsDjango.JobAPIs import DiceJobs, IndeedJobs, GitHubJobs
 
 
@@ -18,9 +18,7 @@ class JobListPage(object):
         self.jobs_list = []
         self.file_name = "templates/PyJobsDjango/" + filename
         self.locations = {}
-        if css_location = 'materialize':
-            self.css_location = 'https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css'
-        elif css_location == 'static':
+        if css_location == 'static':
             self.css_location = '/static/PyJobsDjango/job_page.css'
         else:
             self.css_location = css_location + "job_page.css"
@@ -32,9 +30,10 @@ class JobListPage(object):
         <head>
             <title>Job Report for {} {}</title>
             <link type='text/css' rel='stylesheet' href="{}"/>
+            <link type='text/css' rel='stylesheet' href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
         </head>
         <body>
-          <div>
+          <div class="title">
           <h1>
            Job Report for {} {}
           </h1>
@@ -62,12 +61,19 @@ class JobListPage(object):
         self.create_page()
 
     def retrieve_jobs(self):
-        indeed_jobs = IndeedJobs(self.search, self.job_count)
-        self.jobs_list = indeed_jobs.get_jobs()
-        dice_jobs = DiceJobs(self.search, self.job_count)
-        self.jobs_list += dice_jobs.get_jobs()
-        github_jobs = GitHubJobs(self.search, self.job_count)
-        self.jobs_list += github_jobs.get_jobs()
+        indeed = IndeedJobs(self.search, self.job_count)
+        github = GitHubJobs(self.search, self.job_count)
+        dice = DiceJobs(self.search, self.job_count)
+        job_list = Queue()
+        indeed_jobs = Process(target=indeed.get_jobs, args={job_list})
+        dice_jobs = Process(target=dice.get_jobs, args={job_list})
+        github_jobs = Process(target=github.get_jobs, args={job_list})
+        indeed_jobs.start()
+        dice_jobs.start()
+        github_jobs.start()
+        for i in range(3):
+            self.jobs_list += job_list.get()
+
 
     def get_locations(self):
         for job in self.jobs_list:
@@ -87,10 +93,11 @@ class JobListPage(object):
         """
         jobs_html = ""
         for location in self.locations:
-            jobs_html += '<br><h3>' + location.upper() + '</h3>'
+            jobs_html += '<div class="card-panel teal lighten-2"><br><h3>' + location.upper() + '</h3>'
             for job in self.jobs_list:
                 if job['location'].upper() == location and job['name'] not in jobs_html:
                     jobs_html += self.format_job_to_html(job)
+            jobs_html += '</div>'
         self.page += jobs_html
 
     def create_page(self):

@@ -38,7 +38,7 @@ class GitHubJobs(JobAPI):
             # ("page", self.page)
         )
 
-    def get_jobs(self):
+    def get_jobs(self, queue):
         while self.end_job <= self.desired_jobs:
             self.end_job += 50
             indeed_query = requests.get(self.site + urllib.parse.urlencode(self.args))
@@ -64,7 +64,7 @@ class GitHubJobs(JobAPI):
                     }
                 self.audit_job(this_job)
             self.page += 1
-        return self.jobs
+        queue.put(self.jobs)
 
 
 class IndeedJobs(JobAPI):
@@ -98,7 +98,8 @@ class IndeedJobs(JobAPI):
             #     "as_and": "",
             }
 
-    def get_jobs(self):
+    def get_jobs(self, queue):
+        """ gets job results and puts them into the queue"""
         while self.end_job <= self.desired_jobs:
             self.end_job += 25
             indeed_query = requests.get(self.site + urllib.parse.urlencode(self.args, safe="+"))
@@ -113,7 +114,7 @@ class IndeedJobs(JobAPI):
                     'source': self.source_link,
                 }
                 self.audit_job(this_job)
-        return self.jobs
+        queue.put(self.jobs)
 
 
 class DiceJobs(JobAPI):
@@ -141,7 +142,7 @@ class DiceJobs(JobAPI):
             "sd": "d"
             }
 
-    def get_jobs(self):
+    def get_jobs(self, queue):
         while int(self.args['page']) <= (self.desired_jobs/50):
             dice_query = requests.get(self.site + urllib.parse.urlencode(self.args))
             results = json.loads(dice_query.text)['resultItemList']
@@ -157,7 +158,7 @@ class DiceJobs(JobAPI):
                 self.audit_job(this_job)
             self.args['page'] = str(int(self.args['page']) + 1)
 
-        return self.jobs
+        queue.put(self.jobs)
 
 
 class GlassdoorJobs(JobAPI):
