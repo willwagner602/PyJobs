@@ -27,3 +27,7 @@ def get_jobs_page(request):
 
     elif request.method == 'GET':
         return render(request, 'PyJobsDjango/search_page.html', )
+
+def get_existing_page(request):
+	path = request.path[6:]
+	return render(request, 'PyJobsDjango/' + path + '.html',)
