@@ -25,3 +25,9 @@
 .center {
     margin-top: 20%;
 }
+
+.searchcard {
+    margin: auto;
+    top: 40%;
+    position: relative;
+}

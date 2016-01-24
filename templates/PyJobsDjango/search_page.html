@@ -1,22 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Job Search</title>
-    {% csrf_token %}
-</head>
-<body>
-    {% load staticfiles %}
-    <link type="text/css" rel="stylesheet" href="{% static "PyJobsDjango/search_page.css" %}">
-    <div class="center">
-        {{ keywords }}
-        <form class="job_search" action="/jobs/" method="POST">
-            {% csrf_token %}
-            <input type="text" name="keywords" class="searchbox" placeholder="python">
-            <input type="text" name="zipcode" class="zipbox" placeholder="94105"><br>
-            <input value="Find Jobs" type="submit" name="submit" class="submit">
+    <head>
+        {% load staticfiles %}
 
-        </form>
-    </div>
-</body>
+        <!--Import normalize.css-->
+        <link type=text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css">
+        <!--Import Google Icon Font-->
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href={% static "LandingPage/materialize/css/materialize.min.css" %}  media="screen,projection"/>
+
+        <!--Import my stylesheet-->
+{#        <link type="text/css" rel="stylesheet" href="{% static "PyJobsDjango/search_page.css" %}">#}
+
+
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <title>Job Search</title>
+        {% csrf_token %}
+    </head>
+    <body>
+    <header>
+        <nav>
+            <div class="nav-wrapper teal">
+                <a class="center brand-logo">PyJobs</a>
+                <ul id="nav-mobile" class="right hid-on-med-and-down">
+                    <li><a href="https://github.com/willwagner602/PyJobsDjango">Check out on GitHub</a></li>
+                    <li><a href="http://willwagner.me">Home</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="center container">
+            {{ keywords }}
+            <div class="card">
+                <form class="job_search container" action="/jobs/" method="POST">
+                    <div>
+                        {% csrf_token %}
+                        <div class="row valign-wrapper">
+                            <div class="col valign">
+                                Search terms:
+                            </div>
+                            <div class="col valign s4 m9">
+                                <input type="text" name="keywords" class="searchbox" placeholder="python">
+                            </div>
+                        </div>
+                        <div class="row valign-wrapper">
+                            <div class="col valign">
+                                Zip Code:
+                            </div>
+                            <div class="col valign s4 m9">
+                                <input type="text" name="zipcode" class="zipbox" placeholder="94105" ><br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-action">
+                        <input value="Find Jobs" type="submit" name="submit" class="submit btn">
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <div class="divider"></div>
+
+    </main>
+
+    <footer>
+
+    </footer>
+    </body>
 </html>
