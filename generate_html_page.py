@@ -74,7 +74,6 @@ class JobListPage(object):
         for i in range(3):
             self.jobs_list += job_list.get()
 
-
     def get_locations(self):
         for job in self.jobs_list:
             if job["location"].upper() not in self.locations:
@@ -106,6 +105,7 @@ class JobListPage(object):
             with open(self.file_name, 'w') as file:
                 file.write(self.page)
         except FileNotFoundError:
+            print(settings.BASE_DIR)
             file = open(settings.BASE_DIR + '/PyJobsDjango/' + self.file_name, 'w+', encoding='utf-8')
             file.write(self.page)
             file.close()
@@ -130,9 +130,9 @@ if __name__ == "__main__":
     }
     
     search_test = {'terms': ["python", "developer"],
-                  'zip_code': 95126,
-                  "avoid_terms": '',
-                  "required_terms": '',
+                   'zip_code': 95126,
+                   "avoid_terms": '',
+                   "required_terms": '',
                   }
 
     job_page = JobListPage(search_test, origin + '/static/PyJobsDjango/', 'python_developer.html')
